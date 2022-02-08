@@ -6,7 +6,7 @@ import react from "react";
 function App() {
   //accessing the states of all the inputs + answer
   const [name, setName] = useState("");
-  const [gender, setGender] = useState("");
+  const [gender, setGender] = useState("male");
   const [age, setAge] = useState("");
   const [answer, setAnswer] = useState("");
 
@@ -24,11 +24,16 @@ function App() {
   //function that changes the gender
   const changeInGender = (e) => {
     setGender(e.target.value);
+    console.log(gender);
   };
 
   //function that changes the answer based on the provided information
   const generateAnswer = (e) => {
     e.preventDefault();
+    setGender("male");
+    setAge("");
+    setName("");
+
     if (name == "" || age == "") {
       setAnswer("Both name and age must be filled.");
     } else if (gender == "male") {
@@ -46,8 +51,11 @@ function App() {
 
   return (
     <>
-      <p>Please provide us information so we can sell it to advertisers</p>
-      <h1>{answer}</h1>
+      {answer === "" ? (
+        <h1>Please provide the information</h1>
+      ) : (
+        <h1>{answer}</h1>
+      )}
       <form onSubmit={generateAnswer}>
         <input
           type="text"
